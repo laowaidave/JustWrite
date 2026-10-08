@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JustWrite – a calm place to write your book</title>
+<meta name="description" content="JustWrite is a distraction-free writing app for authors. Books and chapters, versions, writing goals and print-ready exports. One payment of £29.99, no subscription.">
+<meta property="og:title" content="JustWrite – a calm place to write your book">
+<meta property="og:description" content="A distraction-free writing app for authors. One payment, no subscription.">
+<meta property="og:image" content="https://laowaidave.github.io/JustWrite/logo.png">
+<meta property="og:url" content="https://laowaidave.github.io/JustWrite/">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+@font-face { font-family: "EB Garamond"; src: url("fonts/EBGaramond-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "EB Garamond"; src: url("fonts/EBGaramond-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lato"; src: url("fonts/Lato-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Lato"; src: url("fonts/Lato-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+
+/* JustWrite's own Light and Dark themes */
+:root {
+  --desk: #ECE9E3; --page: #FFFEFB; --panel: #F7F5F1; --ink: #2B2825; --muted: #6E6860; --faint: #B0AAA1;
+  --line: #E3DED6; --accent: #B85C38; --accent-hover: #A04E2E; --on-accent: #FFFFFF; --accent-soft: #EFDFD4;
+  --shadow: 0 1px 2px rgba(43, 40, 37, .06), 0 12px 32px rgba(43, 40, 37, .10);
+  --serif: "EB Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Lato", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --desk: #17191C; --page: #212428; --panel: #1C1E22; --ink: #DCD8D0; --muted: #9A958D; --faint: #5F5C57;
+    --line: #2F3237; --accent: #E0875B; --accent-hover: #EA9A71; --on-accent: #1B1B1B; --accent-soft: #3A2E28;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px rgba(0, 0, 0, .35);
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+a:hover { color: var(--accent-hover); }
+img { max-width: 100%; height: auto; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(40px, 6vw, 64px); letter-spacing: -.01em; }
+h2 { font-size: clamp(32px, 4.2vw, 44px); }
+h3 { font-size: 25px; }
+.small { font-size: 14px; color: var(--muted); }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; background: var(--page); padding: 8px 12px; z-index: 10; }
+
+/* Header */
+.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--desk) 88%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 26px/1 var(--serif); }
+.brand img { width: 34px; height: 34px; }
+nav { display: flex; align-items: center; gap: 22px; }
+nav a { color: var(--ink); text-decoration: none; font-size: 15px; }
+nav a:hover { color: var(--accent); }
+
+/* Buttons */
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 22px;
+  border-radius: 10px; border: 1px solid var(--line); background: var(--page); color: var(--ink); text-decoration: none;
+  font: 700 16px/1.2 var(--sans); transition: background .15s, border-color .15s, transform .15s; }
+.button:hover { border-color: var(--faint); color: var(--ink); transform: translateY(-1px); }
+.button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.button.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--on-accent); }
+nav .button { min-height: 38px; padding: 8px 16px; font-size: 15px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 14px; }
+
+/* Hero */
+.hero { padding: 72px 0 88px; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+.lede { font-size: 20px; color: var(--muted); margin: 22px 0 0; max-width: 34em; }
+
+/* The page mock-up: a chapter open in JustWrite */
+.page { margin: 0; background: var(--page); border-radius: 6px; box-shadow: var(--shadow); padding: 38px 44px 26px;
+  font-family: var(--serif); position: relative; transform: rotate(.6deg); }
+.page-head { display: flex; justify-content: space-between; font: 13px var(--sans); color: var(--muted); }
+.page h3 { font-size: 30px; text-align: center; margin: 26px 0 18px; }
+.page .verse { text-align: center; font-style: italic; color: var(--muted); font-size: 17px; line-height: 1.5; margin: 0 0 18px; }
+.page p { font-size: 19px; line-height: 1.65; margin: 0; }
+.page .text { position: relative; max-height: 190px; overflow: hidden; }
+.page .text::after { content: ""; position: absolute; inset: auto 0 0; height: 80px; background: linear-gradient(transparent, var(--page)); }
+.caret { display: inline-block; width: 2px; height: 1.05em; background: var(--accent); vertical-align: -0.15em; margin-left: 1px; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.page-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); margin-top: 18px; padding-top: 12px;
+  font: 13px var(--sans); color: var(--muted); }
+.chip { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #E0A33A; display: inline-block; }
+
+/* Sections */
+section { padding: 88px 0; }
+.alt { background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.intro { max-width: 40em; margin-bottom: 44px; }
+.intro p { color: var(--muted); font-size: 19px; margin: 14px 0 0; }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.feature { background: var(--page); border: 1px solid var(--line); border-radius: 12px; padding: 26px 26px 24px; }
+.feature h3 { margin-bottom: 10px; }
+.feature h3::before { content: ""; display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--accent); margin-bottom: 16px; }
+.feature p { margin: 0; color: var(--muted); font-size: 16px; }
+
+.quiet { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
+.quiet h3 { font-size: 22px; margin-bottom: 6px; }
+.quiet p { margin: 0; color: var(--muted); font-size: 16px; }
+
+/* Price */
+.pricing { display: grid; grid-template-columns: 1.2fr 1fr; gap: 18px; align-items: stretch; }
+.card { background: var(--page); border: 1px solid var(--line); border-radius: 14px; padding: 34px; display: flex; flex-direction: column; }
+.card.main { border-color: var(--accent); box-shadow: var(--shadow); }
+.price { font: 60px/1 var(--serif); margin: 14px 0 4px; }
+.price small { font: 16px var(--sans); color: var(--muted); margin-left: 6px; }
+.card ul { list-style: none; padding: 0; margin: 20px 0 26px; }
+.card li { padding: 7px 0 7px 28px; position: relative; }
+.card li::before { content: ""; position: absolute; left: 4px; top: 15px; width: 12px; height: 7px; border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
+.card .actions { margin: auto 0 0; }
+.card p { color: var(--muted); margin: 12px 0 0; }
+
+/* Download */
+.downloads { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; max-width: 760px; }
+.dl { display: flex; gap: 18px; align-items: center; background: var(--page); border: 1px solid var(--line); border-radius: 14px; padding: 24px;
+  color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s; }
+a.dl:hover { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
+.dl.mine { border-color: var(--accent); box-shadow: var(--shadow); }
+.dl svg { flex: none; width: 40px; height: 40px; fill: var(--ink); }
+.dl strong { display: block; font-size: 19px; }
+.dl span { display: block; font-size: 14px; color: var(--muted); }
+.dl.soon { opacity: .7; }
+.dl .go { margin-left: auto; font-weight: 700; color: var(--accent); font-size: 15px; white-space: nowrap; }
+#version { margin: 0 0 22px; color: var(--muted); }
+details { max-width: 760px; margin-top: 24px; background: var(--page); border: 1px solid var(--line); border-radius: 12px; padding: 4px 22px; }
+summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
+#notes { padding-bottom: 12px; color: var(--muted); font-size: 16px; }
+#notes ul { padding-left: 20px; margin: 0; }
+#notes li { margin: 0 0 10px; }
+.help { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 760px; margin-top: 40px; }
+.help h3 { font-size: 21px; margin-bottom: 6px; }
+.help p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* Footer */
+footer { padding: 56px 0 64px; }
+.sister { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; background: var(--page);
+  border: 1px solid var(--line); border-radius: 14px; padding: 26px 30px; margin-bottom: 40px; }
+.sister h3 { font-size: 24px; }
+.sister p { margin: 4px 0 0; color: var(--muted); }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 28px; font-size: 14px; color: var(--muted); }
+.foot a { color: var(--muted); }
+.foot a:hover { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .hero .wrap, .pricing { grid-template-columns: 1fr; }
+  .features, .quiet { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 48px 0 64px; }
+  .page { transform: none; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+  nav a:not(.button) { display: none; }
+  .features, .quiet, .downloads, .help { grid-template-columns: 1fr; }
+  section { padding: 64px 0; }
+  .page { padding: 28px 22px 20px; }
+  .card { padding: 26px 22px; }
+  .lede { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .caret { animation: none; }
+  .button, .dl { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the page</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="logo.png" alt="" width="34" height="34">JustWrite</a>
+    <nav aria-label="Sections">
+      <a href="#features">Features</a>
+      <a href="#price">Price</a>
+      <a class="button primary" href="#download">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>A calm place to write your book.</h1>
+        <p class="lede">JustWrite is a distraction-free writing app for authors. Your books and chapters, the versions you
+          try, your writing goals and print-ready exports, and nothing else in your way.</p>
+        <div class="actions">
+          <a class="button primary" id="hero-download" href="#download">Download the free trial</a>
+          <a class="button" href="#price">Buy JustWrite · £29.99</a>
+        </div>
+        <p class="small" id="hero-note">For Windows · 7-day free trial · one payment, no subscription</p>
+      </div>
+
+      <figure class="page" aria-label="A chapter open in JustWrite">
+        <div class="page-head"><span>The Legend of Sleepy Hollow</span><span>Chapter 1 of 8</span></div>
+        <h3>Sleepy Hollow</h3>
+        <p class="verse">A pleasing land of drowsy head it was,<br>Of dreams that wave before the half-shut eye</p>
+        <div class="text">
+          <p>In the bosom of one of those spacious coves which indent the eastern shore of the Hudson, at that broad
+            expansion of the river denominated by the ancient Dutch navigators the Tappan Zee,<span class="caret"></span>
+            and where they always prudently shortened sail and implored the protection of St. Nicholas when they
+            crossed, there lies a small market town or rural port.</p>
+        </div>
+        <div class="page-foot">
+          <span class="chip"><span class="dot"></span>Draft</span>
+          <span>Version: Original</span>
+          <span>1,812 words</span>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="alt" id="features">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Everything a book needs. Nothing it doesn't.</h2>
+        <p>JustWrite keeps the tools out of sight until you want them, so the page is all you see while you write.</p>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <h3>Just the page</h3>
+          <p>A centred page with a comfortable line length. Light, Sepia and Dark themes, 20 book fonts, and Focus
+            mode hides everything but your words.</p>
+        </div>
+        <div class="feature">
+          <h3>Books and chapters</h3>
+          <p>Keep every book in one place. Drag chapters into order, mark them In progress, Draft or Final, and see
+            word counts for each chapter and the whole book.</p>
+        </div>
+        <div class="feature">
+          <h3>Versions</h3>
+          <p>Try a chapter another way without losing the first. Make a new version when you want one, switch
+            between them, and lock the ones you want to keep exactly as they are.</p>
+        </div>
+        <div class="feature">
+          <h3>Writing goals</h3>
+          <p>Set a target in words or writing time, per day, week or month, and watch the gauge fill. Keep your
+            streak going and give each book a length to aim for.</p>
+        </div>
+        <div class="feature">
+          <h3>Ready for print</h3>
+          <p>Export to PDF, Word, EPUB, RTF and text. For KDP and IngramSpark, make a print interior at your trim
+            size and a full cover PDF sized for your page count.</p>
+        </div>
+        <div class="feature">
+          <h3>Advance reader copies</h3>
+          <p>Make a personal EPUB or PDF for each early reader. Every copy is invisibly marked, so if one turns up
+            where it shouldn't, JustWrite can tell you whose it was.</p>
+        </div>
+        <div class="feature">
+          <h3>Spell check</h3>
+          <p>English (UK and US) built in and 14 more languages to download. Tell it to ignore your characters'
+            names in one book without adding them to every book.</p>
+        </div>
+        <div class="feature">
+          <h3>Writing prompts</h3>
+          <p>Stuck for a start? The New Book window offers ideas to begin from: 165 original prompts in 11 genres.</p>
+        </div>
+        <div class="feature">
+          <h3>Pictures and covers</h3>
+          <p>Drop pictures into chapters, add your cover and book details, and they go into every export, with the
+            blurb on the back of the printed cover.</p>
+        </div>
+      </div>
+
+      <div class="quiet">
+        <div>
+          <h3>Saved as you type</h3>
+          <p>JustWrite saves all the time, and a crash can't leave a half-written chapter. Deleted chapters go to the
+            Recycle Bin, not into thin air.</p>
+        </div>
+        <div>
+          <h3>Your books stay yours</h3>
+          <p>Books are ordinary files on your computer. Keep them where you like, even in Dropbox or OneDrive.
+            No account needed to write.</p>
+        </div>
+        <div>
+          <h3>Updates included</h3>
+          <p>JustWrite updates itself. A JustWrite 2 licence covers every 2.x update, at no extra cost.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="price">
+    <div class="wrap">
+      <div class="intro">
+        <h2>One payment. Every JustWrite 2 update.</h2>
+        <p>No subscription, no monthly fee. Buy it once and it's yours.</p>
+      </div>
+      <div class="pricing">
+        <div class="card main">
+          <h3>JustWrite for Windows</h3>
+          <div class="price">£29.99<small>once</small></div>
+          <ul>
+            <li>Every JustWrite 2 update included</li>
+            <li>For one person on Windows</li>
+            <li>Move your licence when you change computers</li>
+            <li>Payment, VAT and your licence key handled by Polar</li>
+          </ul>
+          <div class="actions">
+            <a class="button primary" href="https://buy.polar.sh/polar_cl_AeQ3UzPk7FXrrjqK3x18nA8r4gzvfUQJl3PEX1Qnlxo">Buy for Windows</a>
+            <a class="button" id="buy-mac" href="https://buy.polar.sh/polar_cl_UxrEftOJLSGts0xexVzuNyY311IcX5XWh61kG0kgt8y" hidden>Buy for Mac</a>
+          </div>
+          <p class="small" id="mac-price-note">The Mac version is coming soon.</p>
+        </div>
+        <div class="card">
+          <h3>Try it first</h3>
+          <div class="price">Free<small>for 7 days</small></div>
+          <p>Write a book of your own with up to two chapters and try everything except exporting. The sample book,
+            <em>The Legend of Sleepy Hollow</em>, is there to play with.</p>
+          <p>When you buy, type your licence key into JustWrite and carry on where you left off.</p>
+          <div class="actions" style="margin-top: 26px">
+            <a class="button" href="#download">Download the free trial</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="download">
+    <div class="wrap">
+      <div class="intro" style="margin-bottom: 26px">
+        <h2>Download JustWrite</h2>
+      </div>
+      <p id="version">The latest version, with a 7-day free trial.</p>
+      <div class="downloads">
+        <a class="dl" id="dl-windows" href="https://github.com/laowaidave/JustWrite/releases/latest">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.1 10.4 4v7.1H3V5.1Zm0 13.8 7.4 1.1v-7H3v5.9Zm8.3 1.2L21 21.5v-8.4h-9.7v7Zm0-16.2v7.2H21V2.5l-9.7 1.4Z"/></svg>
+          <div><strong>Windows</strong><span id="win-detail">Windows 10 or 11, 64-bit</span></div>
+          <span class="go">Download</span>
+        </a>
+        <div class="dl soon" id="dl-mac">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.2 1-4 2.5-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-4ZM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>
+          <div><strong>Mac</strong><span id="mac-detail">Coming soon</span></div>
+        </div>
+      </div>
+      <details id="whats-new" hidden>
+        <summary id="whats-new-title">What's new</summary>
+        <div id="notes"></div>
+      </details>
+      <div class="help">
+        <div>
+          <h3>Opening it the first time</h3>
+          <p>JustWrite's installer isn't code-signed yet, so Windows may say <em>Windows protected your PC</em>.
+            Click <strong>More info</strong>, then <strong>Run anyway</strong>.</p>
+        </div>
+        <div>
+          <h3>Every version</h3>
+          <p>Every release and its files are listed on
+            <a href="https://github.com/laowaidave/JustWrite/releases">JustWrite's releases page</a>.
+            Once installed, JustWrite keeps itself up to date.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="sister">
+      <div>
+        <h3>Also from Six Kingdoms Publishing: JustShuo</h3>
+        <p>Learning Chinese? JustShuo is for reading Chinese, from the same makers as JustWrite.</p>
+      </div>
+      <a class="button" href="https://laowaidave.github.io/JustShuo/">Meet JustShuo</a>
+    </div>
+    <div class="foot">
+      <span>© <span id="year">2026</span> Six Kingdoms Publishing</span>
+      <span><a href="https://polar.sh/six-kingdoms-publishing/portal">Your licence and receipts</a></span>
+      <span>Set in EB Garamond and Lato (<a href="fonts/EBGaramond-OFL.txt">licence</a>, <a href="fonts/Lato-OFL.txt">licence</a>)</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Fill in the download links from the update file JustWrite itself reads (update-2.json, published with each
+// release). Without it, the links go to the GitHub releases page.
+(function () {
+  document.getElementById("year").textContent = new Date().getFullYear();
+  var ua = navigator.userAgent || "";
+  var system = /Mac|iPhone|iPad/.test(ua) ? "mac" : /Windows/.test(ua) ? "windows" : "";
+
+  function mb(bytes) {
+    return bytes > 0 ? Math.max(1, Math.round(bytes / 1048576)) + " MB" : "";
+  }
+
+  function released(text) {
+    var d = new Date(text + "T12:00:00");
+    return isNaN(d) ? "" : d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  }
+
+  function showNotes(version, notes) {
+    var box = document.getElementById("notes");
+    var list = null;
+    notes.split(/\n+/).forEach(function (line) {
+      line = line.trim();
+      if (!line) return;
+      if (line.charAt(0) === "•" || line.charAt(0) === "-") {
+        if (!list) list = box.appendChild(document.createElement("ul"));
+        list.appendChild(document.createElement("li")).textContent = line.replace(/^[•-]\s*/, "");
+      } else {
+        list = null;
+        box.appendChild(document.createElement("p")).textContent = line;
+      }
+    });
+    document.getElementById("whats-new-title").textContent = "What's new in " + version;
+    document.getElementById("whats-new").hidden = false;
+  }
+
+  fetch("update-2.json", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (envelope) {
+      var bytes = Uint8Array.from(atob(envelope.payload), function (c) { return c.charCodeAt(0); });
+      var p = JSON.parse(new TextDecoder().decode(bytes));
+      var d = p.downloads || {};
+      var when = released(p.released);
+      document.getElementById("version").textContent = "JustWrite " + p.version + (when ? ", released " + when : "")
+        + ". Each download includes the 7-day free trial.";
+
+      if (d.windows) {
+        var win = document.getElementById("dl-windows");
+        win.href = d.windows.url;
+        document.getElementById("win-detail").textContent = "Windows 10 or 11, 64-bit · " + mb(d.windows.size);
+      }
+      if (d.mac) {
+        var old = document.getElementById("dl-mac");
+        var mac = document.createElement("a");
+        mac.className = "dl";
+        mac.id = "dl-mac";
+        mac.href = d.mac.url;
+        mac.innerHTML = old.innerHTML;
+        old.replaceWith(mac);
+        document.getElementById("mac-detail").textContent = "Disk image · " + mb(d.mac.size);
+        mac.appendChild(document.createElement("span")).className = "go";
+        mac.lastChild.textContent = "Download";
+        document.getElementById("buy-mac").hidden = false;
+        document.getElementById("mac-price-note").hidden = true;
+        document.getElementById("hero-note").textContent = "For Windows and Mac · 7-day free trial · one payment, no subscription";
+      }
+
+      var mine = system && d[system];
+      if (mine) {
+        document.getElementById("dl-" + system).classList.add("mine");
+        var hero = document.getElementById("hero-download");
+        hero.href = mine.url;
+        hero.textContent = "Download for " + (system === "mac" ? "Mac" : "Windows");
+      }
+      if (p.notes) showNotes(p.version, p.notes);
+    })
+    .catch(function () { /* keep the links to the releases page */ });
+})();
+</script>
+</body>
+</html>
