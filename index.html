@@ -71,24 +71,30 @@ nav .button { min-height: 38px; padding: 8px 16px; font-size: 15px; }
 
 /* Hero */
 .hero { padding: 72px 0 88px; }
-.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
-.lede { font-size: 20px; color: var(--muted); margin: 22px 0 0; max-width: 34em; }
+.hero-text { text-align: center; max-width: 760px; margin: 0 auto; }
+.hero-text .actions { justify-content: center; }
+.lede { font-size: 20px; color: var(--muted); margin: 22px auto 0; max-width: 34em; }
 
-/* The page mock-up: a chapter open in JustWrite */
-.page { margin: 0; background: var(--page); border-radius: 6px; box-shadow: var(--shadow); padding: 38px 44px 26px;
-  font-family: var(--serif); position: relative; transform: rotate(.6deg); }
-.page-head { display: flex; justify-content: space-between; font: 13px var(--sans); color: var(--muted); }
-.page h3 { font-size: 30px; text-align: center; margin: 26px 0 18px; }
-.page .verse { text-align: center; font-style: italic; color: var(--muted); font-size: 17px; line-height: 1.5; margin: 0 0 18px; }
-.page p { font-size: 19px; line-height: 1.65; margin: 0; }
-.page .text { position: relative; max-height: 190px; overflow: hidden; }
-.page .text::after { content: ""; position: absolute; inset: auto 0 0; height: 80px; background: linear-gradient(transparent, var(--page)); }
-.caret { display: inline-block; width: 2px; height: 1.05em; background: var(--accent); vertical-align: -0.15em; margin-left: 1px; animation: blink 1.1s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-.page-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); margin-top: 18px; padding-top: 12px;
-  font: 13px var(--sans); color: var(--muted); }
-.chip { display: inline-flex; align-items: center; gap: 6px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: #E0A33A; display: inline-block; }
+/* Screenshots: the app's own windows, framed */
+.shot { display: block; margin: 0 auto; border-radius: 10px; overflow: hidden; border: 1px solid var(--line);
+  box-shadow: var(--shadow); background: var(--page); line-height: 0; }
+.shot img { display: block; width: 100%; height: auto; }
+.hero .shot { margin-top: 56px; max-width: 1080px; }
+a.shot { cursor: zoom-in; }
+
+/* Take a look: one screenshot at a time */
+.tabs { display: none; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; }
+.js .tabs { display: flex; }
+.tab { font: 700 15px/1.2 var(--sans); color: var(--ink); background: var(--page); border: 1px solid var(--line);
+  border-radius: 999px; padding: 10px 18px; cursor: pointer; }
+.tab:hover { border-color: var(--faint); }
+.tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.tab:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+.panel { margin: 0 0 56px; }
+.js .panel { margin: 0; }
+.panel figcaption { max-width: 40em; margin: 0 auto 22px; text-align: center; }
+.panel figcaption h3 { margin-bottom: 6px; }
+.panel figcaption p { margin: 0; color: var(--muted); }
 
 /* Sections */
 section { padding: 88px 0; }
@@ -151,23 +157,23 @@ footer { padding: 56px 0 64px; }
 .foot a:hover { color: var(--accent); }
 
 @media (max-width: 900px) {
-  .hero .wrap, .pricing { grid-template-columns: 1fr; }
+  .pricing { grid-template-columns: 1fr; }
   .features, .quiet { grid-template-columns: 1fr 1fr; }
   .hero { padding: 48px 0 64px; }
-  .page { transform: none; }
+  .hero .shot { margin-top: 40px; }
 }
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
   nav a:not(.button) { display: none; }
   .features, .quiet, .downloads, .help { grid-template-columns: 1fr; }
   section { padding: 64px 0; }
-  .page { padding: 28px 22px 20px; }
   .card { padding: 26px 22px; }
   .lede { font-size: 18px; }
+  .shot { border-radius: 6px; }
+  .tab { padding: 8px 14px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .caret { animation: none; }
   .button, .dl { transition: none; }
 }
 </style>
@@ -180,6 +186,7 @@ footer { padding: 56px 0 64px; }
     <a class="brand" href="#"><img src="logo.png" alt="" width="34" height="34">JustWrite</a>
     <nav aria-label="Sections">
       <a href="#features">Features</a>
+      <a href="#tour">Screenshots</a>
       <a href="#price">Price</a>
       <a class="button primary" href="#download">Download</a>
     </nav>
@@ -189,7 +196,7 @@ footer { padding: 56px 0 64px; }
 <main id="main">
   <section class="hero">
     <div class="wrap">
-      <div>
+      <div class="hero-text">
         <h1>A calm place to write your book.</h1>
         <p class="lede">JustWrite is a distraction-free writing app for authors. Your books and chapters, the versions you
           try, your writing goals and print-ready exports, and nothing else in your way.</p>
@@ -199,23 +206,10 @@ footer { padding: 56px 0 64px; }
         </div>
         <p class="small" id="hero-note">For Windows · 7-day free trial · one payment, no subscription</p>
       </div>
-
-      <figure class="page" aria-label="A chapter open in JustWrite">
-        <div class="page-head"><span>The Legend of Sleepy Hollow</span><span>Chapter 1 of 8</span></div>
-        <h3>Sleepy Hollow</h3>
-        <p class="verse">A pleasing land of drowsy head it was,<br>Of dreams that wave before the half-shut eye</p>
-        <div class="text">
-          <p>In the bosom of one of those spacious coves which indent the eastern shore of the Hudson, at that broad
-            expansion of the river denominated by the ancient Dutch navigators the Tappan Zee,<span class="caret"></span>
-            and where they always prudently shortened sail and implored the protection of St. Nicholas when they
-            crossed, there lies a small market town or rural port.</p>
-        </div>
-        <div class="page-foot">
-          <span class="chip"><span class="dot"></span>Draft</span>
-          <span>Version: Original</span>
-          <span>1,812 words</span>
-        </div>
-      </figure>
+      <a class="shot" href="screenshots/main.png">
+        <img src="screenshots/main.png" width="1280" height="800"
+          alt="JustWrite with the sample book, The Legend of Sleepy Hollow, open: the chapters on the left with their word counts, the chapter on a page in the middle, and the daily writing goal filling up on the right">
+      </a>
     </div>
   </section>
 
@@ -291,7 +285,80 @@ footer { padding: 56px 0 64px; }
     </div>
   </section>
 
-  <section id="price">
+  <section id="tour">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Take a look</h2>
+        <p>These are real screenshots of JustWrite, with the sample book that comes with it.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Screenshots">
+        <button class="tab" role="tab" id="tab-focus" aria-controls="shot-focus">Focus mode</button>
+        <button class="tab" role="tab" id="tab-dark" aria-controls="shot-dark">Dark theme</button>
+        <button class="tab" role="tab" id="tab-versions" aria-controls="shot-versions">Versions</button>
+        <button class="tab" role="tab" id="tab-goals" aria-controls="shot-goals">Writing goals</button>
+        <button class="tab" role="tab" id="tab-export" aria-controls="shot-export">Export</button>
+        <button class="tab" role="tab" id="tab-arc" aria-controls="shot-arc">Reader copies</button>
+        <button class="tab" role="tab" id="tab-prompt" aria-controls="shot-prompt">Writing prompts</button>
+      </div>
+
+      <figure class="panel" id="shot-focus" role="tabpanel" aria-labelledby="tab-focus">
+        <figcaption><h3>Focus mode</h3><p>One key and everything but the page disappears. Here in the Sepia theme.</p></figcaption>
+        <a class="shot" href="screenshots/focus.png" style="max-width: 1080px">
+          <img src="screenshots/focus.png" width="1280" height="800" loading="lazy" decoding="async"
+            alt="Focus mode: only the page, in warm Sepia colours, with the chapter's version and status beside its title">
+        </a>
+      </figure>
+      <figure class="panel" id="shot-dark" role="tabpanel" aria-labelledby="tab-dark">
+        <figcaption><h3>Light, Sepia or Dark</h3><p>Write in the colours that suit you, with pictures right in the chapter.</p></figcaption>
+        <a class="shot" href="screenshots/dark.jpg" style="max-width: 1080px">
+          <img src="screenshots/dark.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            alt="The Dark theme, with an illustration of the Headless Horseman in the middle of a chapter">
+        </a>
+      </figure>
+      <figure class="panel" id="shot-versions" role="tabpanel" aria-labelledby="tab-versions">
+        <figcaption><h3>Versions</h3><p>Every version of a chapter in one place, searchable, with the differences
+          highlighted. Lock the ones you want to keep as they are.</p></figcaption>
+        <a class="shot" href="screenshots/versions.png" style="max-width: 892px">
+          <img src="screenshots/versions.png" width="892" height="690" loading="lazy" decoding="async"
+            alt="Version History: four versions of a chapter, the original locked, with an added opening sentence highlighted in green">
+        </a>
+      </figure>
+      <figure class="panel" id="shot-goals" role="tabpanel" aria-labelledby="tab-goals">
+        <figcaption><h3>Writing goals</h3><p>A daily target in words or time, your streak, the last two weeks, and how
+          long the book should be.</p></figcaption>
+        <a class="shot" href="screenshots/goals.png" style="max-width: 590px">
+          <img src="screenshots/goals.png" width="590" height="655" loading="lazy" decoding="async"
+            alt="Writing goals: 360 of 500 words today, a 6-day streak, a chart of the last 14 days, and the book's target length">
+        </a>
+      </figure>
+      <figure class="panel" id="shot-export" role="tabpanel" aria-labelledby="tab-export">
+        <figcaption><h3>Export</h3><p>PDF to read or share, a print book for KDP and IngramSpark, Word, EPUB, RTF or
+          plain text, with your cover, title page and contents.</p></figcaption>
+        <a class="shot" href="screenshots/export.png" style="max-width: 796px">
+          <img src="screenshots/export.png" width="796" height="686" loading="lazy" decoding="async"
+            alt="Export your book: choices of PDF, print book, Word, EPUB, RTF and plain text, with title, author, cover, page size and font">
+        </a>
+      </figure>
+      <figure class="panel" id="shot-arc" role="tabpanel" aria-labelledby="tab-arc">
+        <figcaption><h3>Advance reader copies</h3><p>Paste your early readers' email addresses and get a personal,
+          invisibly marked copy for each of them.</p></figcaption>
+        <a class="shot" href="screenshots/reader-copies.png" style="max-width: 698px">
+          <img src="screenshots/reader-copies.png" width="698" height="567" loading="lazy" decoding="async"
+            alt="Advance reader copies: four readers' email addresses, EPUB or PDF, and a Make 4 Copies button">
+        </a>
+      </figure>
+      <figure class="panel" id="shot-prompt" role="tabpanel" aria-labelledby="tab-prompt">
+        <figcaption><h3>Writing prompts</h3><p>Stuck for an idea? A new book can start from one of 165 prompts, and
+          keep it above the page while you write.</p></figcaption>
+        <a class="shot" href="screenshots/new-book.png" style="max-width: 632px">
+          <img src="screenshots/new-book.png" width="632" height="368" loading="lazy" decoding="async"
+            alt="A new book: its title, and a writing prompt to start from, with a button for another prompt">
+        </a>
+      </figure>
+    </div>
+  </section>
+
+  <section class="alt" id="price">
     <div class="wrap">
       <div class="intro">
         <h2>One payment. Every JustWrite 2 update.</h2>
@@ -327,7 +394,7 @@ footer { padding: 56px 0 64px; }
     </div>
   </section>
 
-  <section class="alt" id="download">
+  <section id="download">
     <div class="wrap">
       <div class="intro" style="margin-bottom: 26px">
         <h2>Download JustWrite</h2>
@@ -383,6 +450,33 @@ footer { padding: 56px 0 64px; }
 </footer>
 
 <script>
+// Screenshots: one at a time, chosen with the tabs (without JavaScript they're all shown, one after another).
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  if (!tabs.length) return;
+  document.documentElement.classList.add("js");
+  function choose(tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    if (focus) tab.focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { choose(t, false); });
+    t.addEventListener("keydown", function (e) {
+      var next = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1
+        : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : null;
+      if (next === null) return;
+      e.preventDefault();
+      choose(tabs[(next + tabs.length) % tabs.length], true);
+    });
+  });
+  choose(tabs[0], false);
+})();
+
 // Fill in the download links from the update file JustWrite itself reads (update-2.json, published with each
 // release). Without it, the links go to the GitHub releases page.
 (function () {
