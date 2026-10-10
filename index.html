@@ -204,7 +204,7 @@ footer { padding: 56px 0 64px; }
           <a class="button primary" id="hero-download" href="#download">Download the free trial</a>
           <a class="button" href="#price">Buy JustWrite · £29.99</a>
         </div>
-        <p class="small" id="hero-note">For Windows · 7-day free trial · one payment, no subscription</p>
+        <p class="small" id="hero-note">For Windows · 14-day free trial · one payment, no subscription</p>
       </div>
       <a class="shot" href="screenshots/main.png">
         <img src="screenshots/main.png" width="1280" height="800"
@@ -382,8 +382,8 @@ footer { padding: 56px 0 64px; }
         </div>
         <div class="card">
           <h3>Try it first</h3>
-          <div class="price">Free<small>for 7 days</small></div>
-          <p>Write a book of your own with up to two chapters and try everything except exporting. The sample book,
+          <div class="price">Free<small>for 14 days</small></div>
+          <p>Write a book of your own with up to five chapters and try everything except exporting. The sample book,
             <em>The Legend of Sleepy Hollow</em>, is there to play with.</p>
           <p>When you buy, type your licence key into JustWrite and carry on where you left off.</p>
           <div class="actions" style="margin-top: 26px">
@@ -399,7 +399,7 @@ footer { padding: 56px 0 64px; }
       <div class="intro" style="margin-bottom: 26px">
         <h2>Download JustWrite</h2>
       </div>
-      <p id="version">The latest version, with a 7-day free trial.</p>
+      <p id="version">The latest version, with a 14-day free trial.</p>
       <div class="downloads">
         <a class="dl" id="dl-windows" href="https://github.com/laowaidave/JustWrite/releases/latest">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.1 10.4 4v7.1H3V5.1Zm0 13.8 7.4 1.1v-7H3v5.9Zm8.3 1.2L21 21.5v-8.4h-9.7v7Zm0-16.2v7.2H21V2.5l-9.7 1.4Z"/></svg>
@@ -519,7 +519,7 @@ footer { padding: 56px 0 64px; }
       var d = p.downloads || {};
       var when = released(p.released);
       document.getElementById("version").textContent = "JustWrite " + p.version + (when ? ", released " + when : "")
-        + ". Each download includes the 7-day free trial.";
+        + ". Each download includes the 14-day free trial.";
 
       if (d.windows) {
         var win = document.getElementById("dl-windows");
@@ -539,7 +539,7 @@ footer { padding: 56px 0 64px; }
         mac.lastChild.textContent = "Download";
         document.getElementById("buy-mac").hidden = false;
         document.getElementById("mac-price-note").hidden = true;
-        document.getElementById("hero-note").textContent = "For Windows and Mac · 7-day free trial · one payment, no subscription";
+        document.getElementById("hero-note").textContent = "For Windows and Mac · 14-day free trial · one payment, no subscription";
       }
 
       var mine = system && d[system];
