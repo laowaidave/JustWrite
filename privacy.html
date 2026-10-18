@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JustWrite – Privacy</title>
+<meta name="description" content="What JustWrite sends over the internet, and what it never sends: your writing stays on your computer.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+@font-face { font-family: "EB Garamond"; src: url("fonts/EBGaramond-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lato"; src: url("fonts/Lato-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Lato"; src: url("fonts/Lato-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+
+:root {
+  --desk: #ECE9E3; --page: #FFFEFB; --ink: #2B2825; --muted: #6E6860; --line: #E3DED6; --accent: #B85C38; --accent-hover: #A04E2E;
+  --serif: "EB Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Lato", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --desk: #17191C; --page: #212428; --ink: #DCD8D0; --muted: #9A958D; --line: #2F3237; --accent: #E0875B; --accent-hover: #EA9A71; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 17px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+a:hover { color: var(--accent-hover); }
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 26px/1 var(--serif); }
+.brand img { width: 34px; height: 34px; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+main { padding: 56px 0 72px; }
+h1, h2 { font-family: var(--serif); font-weight: 400; line-height: 1.15; }
+h1 { font-size: clamp(36px, 5vw, 52px); margin: 0 0 8px; }
+h2 { font-size: 28px; margin: 44px 0 10px; }
+.lede { font-size: 20px; color: var(--muted); margin: 0 0 8px; }
+.updated { font-size: 14px; color: var(--muted); margin: 0; }
+.box { background: var(--page); border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; margin: 28px 0 0; }
+.box p { margin: 0; }
+ul { padding-left: 22px; }
+li { margin: 0 0 10px; }
+p { margin: 0 0 14px; }
+footer { border-top: 1px solid var(--line); padding: 28px 0 48px; font-size: 14px; color: var(--muted); }
+footer a { color: var(--muted); }
+@media (max-width: 640px) { .wrap { padding: 0 16px; } main { padding: 40px 0 56px; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo.png" alt="" width="34" height="34">JustWrite</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Privacy</h1>
+    <p class="lede">Your writing stays on your computer. JustWrite has no accounts, no adverts and no tracking.</p>
+    <p class="updated">Last updated 18 October 2026</p>
+
+    <div class="box">
+      <p>JustWrite is made by an individual developer in the United Kingdom, who publishes it as Six Kingdoms Publishing.
+        This page says what
+        JustWrite sends over the internet, why, and who receives it. It applies to every copy of JustWrite 2, whether you
+        downloaded it from this website or got it from the Microsoft Store.</p>
+    </div>
+
+    <h2>What never leaves your computer</h2>
+    <ul>
+      <li>Your books: their text, titles, pictures, versions, notes and settings. They're ordinary files in your books
+        folder. If you keep that folder in Dropbox, OneDrive or iCloud, those services' own privacy terms apply.</li>
+      <li>Scanned pages you import. JustWrite reads them on your computer; nothing is uploaded.</li>
+      <li>Your writing history and goals, your personal dictionary, and JustWrite's log of problems.</li>
+    </ul>
+    <p>JustWrite doesn't collect statistics about how you use it, and it doesn't send crash reports.
+      <strong>Help › Report a Problem</strong> saves a report on your computer; it's only sent if you choose to email it to
+      me, and it never contains your writing.</p>
+
+    <h2>What JustWrite sends, and to whom</h2>
+    <ul>
+      <li><strong>Your licence key, to Polar.</strong> When you enter a licence key, and about every 14 days after that,
+        JustWrite asks <a href="https://polar.sh">Polar</a> (who sell JustWrite for me) whether the key is valid. It sends the
+        key, your computer's name (for example "DAVID-PC", so you can see your computers in your Polar account), a code that
+        identifies this copy of JustWrite without saying anything about you, and which version of JustWrite and which system
+        (Windows or Mac) it is. During the free trial, nothing is sent to Polar.</li>
+      <li><strong>Buying JustWrite, with Polar.</strong> Buying opens Polar's checkout in your web browser. Polar takes your
+        name, email address and payment, and sends you your licence key. I see your name, email address, country and what
+        you bought, so I can help with your licence. Polar's <a href="https://polar.sh/legal/privacy">privacy policy</a>
+        applies to the checkout.</li>
+      <li><strong>Spelling dictionaries, from jsDelivr.</strong> When you add a spelling language, JustWrite downloads it from
+        <a href="https://www.jsdelivr.com">jsDelivr</a>, a public download service, which sees your computer's internet
+        (IP) address, as any website does.</li>
+      <li><strong>Updates (the copy from this website).</strong> When it starts, and every 12 hours while it's open,
+        JustWrite looks on this website for a newer version, and downloads it from GitHub, which hosts the website and the downloads. GitHub sees your computer's
+        internet (IP) address and which version of JustWrite you have. <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>
+        applies.</li>
+    </ul>
+
+    <h2>If you got JustWrite from the Microsoft Store</h2>
+    <p>The Microsoft Store downloads, installs and updates JustWrite, so JustWrite doesn't look for updates itself. Microsoft
+      does that under the <a href="https://privacy.microsoft.com/privacystatement">Microsoft Privacy Statement</a>. Microsoft
+      gives me summary reports, such as how many people installed JustWrite and its ratings and reviews, and reports of
+      crashes that don't say who you are. It never gives me anything you've written. Licence keys, buying and spelling
+      dictionaries work as described above.</p>
+
+    <h2>This website</h2>
+    <p>This website is hosted by GitHub Pages. It uses no cookies, analytics or adverts, and its fonts are part of the site.
+      GitHub may keep records of visits, such as internet (IP) addresses, under its privacy statement.</p>
+
+    <h2>How long it's kept, and your rights</h2>
+    <p>Polar keeps your purchase and licence records for as long as your licence exists and the law requires (for tax
+      records, usually six years). I don't keep a separate copy. You can see your licence, its computers and your receipts
+      at any time in <a href="https://polar.sh/six-kingdoms-publishing/portal">your Polar account</a>, and remove a computer
+      there or in JustWrite (<strong>Help › Licence</strong>).</p>
+    <p>Under UK and EU data protection law you can ask to see the personal information I have about you, to have it
+      corrected or deleted, or to object to how it's used, and you can complain to the Information Commissioner's Office
+      (<a href="https://ico.org.uk">ico.org.uk</a>). I use your information only to provide and support your licence; I
+      don't sell it or share it with anyone else.</p>
+    <p>To ask about your information, or anything else on this page, email me at
+      <a href="mailto:laowaidave@gmail.com">laowaidave@gmail.com</a>.</p>
+
+    <h2>Changes</h2>
+    <p>If JustWrite starts to send anything new, this page will say so before that version is released, and the date at the
+      top will change.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Six Kingdoms Publishing · <a href="./">JustWrite</a></div>
+</footer>
+</body>
+</html>
