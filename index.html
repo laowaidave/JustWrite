@@ -137,6 +137,14 @@ a.dl:hover { border-color: var(--accent); color: var(--ink); transform: translat
 .dl.soon { opacity: .7; }
 .dl .go { margin-left: auto; font-weight: 700; color: var(--accent); font-size: 15px; white-space: nowrap; }
 #version { margin: 0 0 22px; color: var(--muted); }
+.direct { margin: 18px 0 0; }
+
+/* Microsoft Store badge (the dark one on a light page, the light one on a dark page) */
+.store-badge { display: inline-flex; align-items: center; line-height: 0; border-radius: 8px; transition: transform .15s; }
+.store-badge:hover { transform: translateY(-1px); }
+.store-badge img { display: block; height: 48px; width: auto; }
+.dl .go.badge { line-height: 0; }
+.dl .go.badge img { display: block; height: 40px; width: auto; }
 details { max-width: 760px; margin-top: 24px; background: var(--page); border: 1px solid var(--line); border-radius: 12px; padding: 4px 22px; }
 summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
 #notes { padding-bottom: 12px; color: var(--muted); font-size: 16px; }
@@ -174,7 +182,7 @@ footer { padding: 56px 0 64px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .button, .dl { transition: none; }
+  .button, .dl, .store-badge { transition: none; }
 }
 </style>
 </head>
@@ -201,10 +209,16 @@ footer { padding: 56px 0 64px; }
         <p class="lede">JustWrite is a distraction-free writing app for authors. Your books and chapters, the versions you
           try, your writing goals and print-ready exports, and nothing else in your way.</p>
         <div class="actions">
-          <a class="button primary" id="hero-download" href="#download">Download the free trial</a>
+          <a class="button primary" id="hero-mac" href="#download" hidden>Download for Mac</a>
+          <a class="store-badge" id="hero-download" href="https://apps.microsoft.com/detail/9P7S8F6VGNXC?mode=direct">
+            <picture>
+              <source srcset="https://get.microsoft.com/images/en-us%20light.svg" media="(prefers-color-scheme: dark)">
+              <img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Download from the Microsoft Store">
+            </picture>
+          </a>
           <a class="button" href="#price">Buy JustWrite · £29.99</a>
         </div>
-        <p class="small" id="hero-note">For Windows · 14-day free trial · one payment, no subscription</p>
+        <p class="small" id="hero-note">For Windows, from the Microsoft Store · 14-day free trial · one payment, no subscription</p>
       </div>
       <a class="shot" href="screenshots/main.png">
         <img src="screenshots/main.png" width="1280" height="800"
@@ -279,7 +293,8 @@ footer { padding: 56px 0 64px; }
         </div>
         <div>
           <h3>Updates included</h3>
-          <p>JustWrite updates itself. A JustWrite 2 licence covers every 2.x update, at no extra cost.</p>
+          <p>The Microsoft Store keeps JustWrite up to date. A JustWrite 2 licence covers every 2.x update, at no extra
+            cost.</p>
         </div>
       </div>
     </div>
@@ -388,7 +403,7 @@ footer { padding: 56px 0 64px; }
           <p>When you buy, type your licence key into JustWrite and carry on where you left off. If the trial ends
             first, JustWrite is read-only until you do: your books stay safe, and you can still read them.</p>
           <div class="actions" style="margin-top: 26px">
-            <a class="button" href="#download">Download the free trial</a>
+            <a class="button" href="https://apps.microsoft.com/detail/9P7S8F6VGNXC?mode=direct">Get the free trial</a>
           </div>
         </div>
       </div>
@@ -398,35 +413,43 @@ footer { padding: 56px 0 64px; }
   <section id="download">
     <div class="wrap">
       <div class="intro" style="margin-bottom: 26px">
-        <h2>Download JustWrite</h2>
+        <h2>Get JustWrite</h2>
       </div>
-      <p id="version">The latest version, with a 14-day free trial.</p>
+      <p id="version">Free to try for 14 days, then one licence key unlocks it.</p>
       <div class="downloads">
-        <a class="dl" id="dl-windows" href="https://github.com/laowaidave/JustWrite/releases/latest">
+        <a class="dl" id="dl-windows" href="https://apps.microsoft.com/detail/9P7S8F6VGNXC?mode=direct">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.1 10.4 4v7.1H3V5.1Zm0 13.8 7.4 1.1v-7H3v5.9Zm8.3 1.2L21 21.5v-8.4h-9.7v7Zm0-16.2v7.2H21V2.5l-9.7 1.4Z"/></svg>
-          <div><strong>Windows</strong><span id="win-detail">Windows 10 or 11, 64-bit</span></div>
-          <span class="go">Download</span>
+          <div><strong>Windows</strong><span id="win-detail">Windows 10 or 11</span></div>
+          <span class="go badge">
+            <picture>
+              <source srcset="https://get.microsoft.com/images/en-us%20light.svg" media="(prefers-color-scheme: dark)">
+              <img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Download from the Microsoft Store">
+            </picture>
+          </span>
         </a>
         <div class="dl soon" id="dl-mac">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.2 1-4 2.5-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-4ZM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>
           <div><strong>Mac</strong><span id="mac-detail">Coming soon</span></div>
         </div>
       </div>
+      <p class="small direct">Or <a id="dl-direct" href="https://github.com/laowaidave/JustWrite/releases/latest">download
+        the Windows installer directly</a><span id="direct-detail"></span>.</p>
       <details id="whats-new" hidden>
         <summary id="whats-new-title">What's new</summary>
         <div id="notes"></div>
       </details>
       <div class="help">
         <div>
-          <h3>Opening it the first time</h3>
-          <p>JustWrite's installer isn't code-signed yet, so Windows may say <em>Windows protected your PC</em>.
-            Click <strong>More info</strong>, then <strong>Run anyway</strong>.</p>
+          <h3>From the Microsoft Store</h3>
+          <p>Microsoft checks and signs JustWrite, so Windows installs it without any warnings, and the Store keeps it
+            up to date. Your licence key works in it just the same.</p>
         </div>
         <div>
-          <h3>Every version</h3>
-          <p>Every release and its files are listed on
-            <a href="https://github.com/laowaidave/JustWrite/releases">JustWrite's releases page</a>.
-            Once installed, JustWrite keeps itself up to date.</p>
+          <h3>The direct download</h3>
+          <p>The installer from GitHub isn't code-signed, so Windows may say <em>Windows protected your PC</em>: click
+            <strong>More info</strong>, then <strong>Run anyway</strong>. If Smart App Control is on, Windows won't run
+            it at all, so use the Microsoft Store. Every release is on
+            <a href="https://github.com/laowaidave/JustWrite/releases">JustWrite's releases page</a>.</p>
         </div>
       </div>
     </div>
@@ -438,7 +461,7 @@ footer { padding: 56px 0 64px; }
     <div class="sister">
       <div>
         <h3>Also from Six Kingdoms Publishing: JustShuo</h3>
-        <p>Learning Chinese? JustShuo is for reading Chinese, from the same makers as JustWrite.</p>
+        <p>Learning Chinese? JustShuo is for reading Chinese, by the developer of JustWrite.</p>
       </div>
       <a class="button" href="https://laowaidave.github.io/JustShuo/">Meet JustShuo</a>
     </div>
@@ -479,8 +502,8 @@ footer { padding: 56px 0 64px; }
   choose(tabs[0], false);
 })();
 
-// Fill in the download links from the update file JustWrite itself reads (update-2.json, published with each
-// release). Without it, the links go to the GitHub releases page.
+// Windows: the Microsoft Store. The direct download (and Mac, once there is one) are filled in from the update file
+// JustWrite itself reads (update-2.json, published with each GitHub release); without it, they go to the releases page.
 (function () {
   document.getElementById("year").textContent = new Date().getFullYear();
   var ua = navigator.userAgent || "";
@@ -513,6 +536,10 @@ footer { padding: 56px 0 64px; }
     document.getElementById("whats-new").hidden = false;
   }
 
+  if (system === "windows") {
+    document.getElementById("dl-windows").classList.add("mine");
+  }
+
   fetch("update-2.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (envelope) {
@@ -520,13 +547,11 @@ footer { padding: 56px 0 64px; }
       var p = JSON.parse(new TextDecoder().decode(bytes));
       var d = p.downloads || {};
       var when = released(p.released);
-      document.getElementById("version").textContent = "JustWrite " + p.version + (when ? ", released " + when : "")
-        + ". Each download includes the 14-day free trial.";
 
       if (d.windows) {
-        var win = document.getElementById("dl-windows");
-        win.href = d.windows.url;
-        document.getElementById("win-detail").textContent = "Windows 10 or 11, 64-bit · " + mb(d.windows.size);
+        document.getElementById("dl-direct").href = d.windows.url;
+        document.getElementById("direct-detail").textContent = " (JustWrite " + p.version
+          + (when ? ", released " + when : "") + ", " + mb(d.windows.size) + ")";
       }
       if (d.mac) {
         var old = document.getElementById("dl-mac");
@@ -544,12 +569,11 @@ footer { padding: 56px 0 64px; }
         document.getElementById("hero-note").textContent = "For Windows and Mac · 14-day free trial · one payment, no subscription";
       }
 
-      var mine = system && d[system];
-      if (mine) {
-        document.getElementById("dl-" + system).classList.add("mine");
-        var hero = document.getElementById("hero-download");
-        hero.href = mine.url;
-        hero.textContent = "Download for " + (system === "mac" ? "Mac" : "Windows");
+      if (system === "mac" && d.mac) {
+        document.getElementById("dl-mac").classList.add("mine");
+        var hero = document.getElementById("hero-mac");
+        hero.href = d.mac.url;
+        hero.hidden = false;
       }
       if (p.notes) showNotes(p.version, p.notes);
     })
