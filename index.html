@@ -107,6 +107,8 @@ section { padding: 88px 0; }
 .feature h3 { margin-bottom: 10px; }
 .feature h3::before { content: ""; display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--accent); margin-bottom: 16px; }
 .feature p { margin: 0; color: var(--muted); font-size: 16px; }
+.feature .new { display: inline-block; vertical-align: middle; margin: -4px 0 0 8px; padding: 3px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font: 700 12px/1.2 var(--sans); letter-spacing: .05em; text-transform: uppercase; }
 
 .quiet { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
 .quiet h3 { font-size: 22px; margin-bottom: 6px; }
@@ -145,11 +147,17 @@ a.dl:hover { border-color: var(--accent); color: var(--ink); transform: translat
 .store-badge img { display: block; height: 48px; width: auto; }
 .dl .go.badge { line-height: 0; }
 .dl .go.badge img { display: block; height: 40px; width: auto; }
-details { max-width: 760px; margin-top: 24px; background: var(--page); border: 1px solid var(--line); border-radius: 12px; padding: 4px 22px; }
-summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
-#notes { padding-bottom: 12px; color: var(--muted); font-size: 16px; }
-#notes ul { padding-left: 20px; margin: 0; }
+.whats-new { max-width: 760px; margin-top: 48px; background: var(--page); border: 1px solid var(--line); border-radius: 14px;
+  padding: 28px 30px 16px; }
+.whats-new h3 { margin-bottom: 4px; }
+.whats-new > .small { margin: 0 0 18px; }
+#notes { color: var(--muted); font-size: 16px; }
+#notes p { margin: 0 0 12px; }
+#notes ul { padding-left: 20px; margin: 0 0 12px; }
 #notes li { margin: 0 0 10px; }
+#notes h4 { font: 700 15px/1.3 var(--sans); color: var(--ink); margin: 18px 0 10px; }
+#notes details { border-top: 1px solid var(--line); margin-top: 6px; }
+summary { cursor: pointer; padding: 14px 0 12px; font-weight: 700; color: var(--ink); }
 .help { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 760px; margin-top: 40px; }
 .help h3 { font-size: 21px; margin-bottom: 6px; }
 .help p { margin: 0; color: var(--muted); font-size: 15px; }
@@ -176,6 +184,7 @@ footer { padding: 56px 0 64px; }
   .features, .quiet, .downloads, .help { grid-template-columns: 1fr; }
   section { padding: 64px 0; }
   .card { padding: 26px 22px; }
+  .whats-new { padding: 22px 20px 10px; }
   .lede { font-size: 18px; }
   .shot { border-radius: 6px; }
   .tab { padding: 8px 14px; font-size: 14px; }
@@ -255,16 +264,6 @@ footer { padding: 56px 0 64px; }
             streak going and give each book a length to aim for.</p>
         </div>
         <div class="feature">
-          <h3>Ready for print</h3>
-          <p>Export to PDF, Word, EPUB, RTF and text. For KDP and IngramSpark, make a print interior at your trim
-            size and a full cover PDF sized for your page count.</p>
-        </div>
-        <div class="feature">
-          <h3>Advance reader copies</h3>
-          <p>Make a personal EPUB or PDF for each early reader. Every copy is invisibly marked, so if one turns up
-            where it shouldn't, JustWrite can tell you whose it was.</p>
-        </div>
-        <div class="feature">
           <h3>Spell check</h3>
           <p>English (UK and US) built in and 14 more languages to download. Tell it to ignore your characters'
             names in one book without adding them to every book.</p>
@@ -274,9 +273,34 @@ footer { padding: 56px 0 64px; }
           <p>Stuck for a start? The New Book window offers ideas to begin from: 165 original prompts in 11 genres.</p>
         </div>
         <div class="feature">
+          <h3>Landscape pages <span class="new">New</span></h3>
+          <p>Turn any chapter's pages sideways for a map, a family tree or a wide table. In a PDF or Word file they
+            become landscape; a print book keeps its page size and turns them, as printed books do.</p>
+        </div>
+        <div class="feature">
+          <h3>Full-page pictures <span class="new">New</span></h3>
+          <p>Give a picture a page of its own, as large as fits inside the margins, upright or landscape. Just
+            right for the map at the front of your book.</p>
+        </div>
+        <div class="feature">
+          <h3>Sections <span class="new">New</span></h3>
+          <p>Add your own copyright page, dedication, foreword or About the Author page. Sections stay out of the
+            contents, needn't have a heading, and can come before the contents page.</p>
+        </div>
+        <div class="feature">
+          <h3>Ready for print</h3>
+          <p>Export to PDF, Word, EPUB, RTF and text. For KDP and IngramSpark, make a print interior at your trim
+            size and a full cover PDF sized for your page count.</p>
+        </div>
+        <div class="feature">
           <h3>Pictures and covers</h3>
           <p>Drop pictures into chapters, add your cover and book details, and they go into every export, with the
             blurb on the back of the printed cover.</p>
+        </div>
+        <div class="feature">
+          <h3>Advance reader copies</h3>
+          <p>Make a personal EPUB or PDF for each early reader. Every copy is invisibly marked, so if one turns up
+            where it shouldn't, JustWrite can tell you whose it was.</p>
         </div>
       </div>
 
@@ -432,12 +456,10 @@ footer { padding: 56px 0 64px; }
           <div><strong>Mac</strong><span id="mac-detail">Coming soon</span></div>
         </div>
       </div>
-      <p class="small direct">Or <a id="dl-direct" href="https://github.com/laowaidave/JustWrite/releases/latest">download
-        the Windows installer directly</a><span id="direct-detail"></span>.</p>
-      <details id="whats-new" hidden>
-        <summary id="whats-new-title">What's new</summary>
-        <div id="notes"></div>
-      </details>
+      <!-- release:direct (written by java tools/Release.java manifest) -->
+      <p class="small direct">Or <a id="dl-direct" href="https://github.com/laowaidave/JustWrite/releases/download/v2.2.3/JustWrite-2.2.3-windows-x64-setup.exe">download
+        the Windows installer directly</a><span id="direct-detail"> (JustWrite 2.2.3, released 25 October 2026, 78 MB)</span>.</p>
+      <!-- /release:direct -->
       <div class="help">
         <div>
           <h3>From the Microsoft Store</h3>
@@ -452,6 +474,47 @@ footer { padding: 56px 0 64px; }
             <a href="https://github.com/laowaidave/JustWrite/releases">JustWrite's releases page</a>.</p>
         </div>
       </div>
+      <!-- release:notes (written by java tools/Release.java manifest) -->
+      <div class="whats-new" id="whats-new" data-version="2.2.3">
+        <h3 id="whats-new-title">What's new in 2.2.3</h3>
+        <p class="small"><span id="whats-new-when">Released 25 October 2026</span> · <a id="whats-new-link" href="https://github.com/laowaidave/JustWrite/releases/tag/v2.2.3">JustWrite 2.2.3 on GitHub</a></p>
+        <div id="notes">
+          <p>JustWrite 2.2.3 gives you more say over how your book's pages look.</p>
+          <ul>
+            <li>Landscape pages: make any chapter's pages landscape (Chapter &gt; Page Layout). In a PDF or Word file they're wider than tall; a print book keeps its page size and turns them sideways, as printed books do with maps and wide tables.</li>
+            <li>Full-page pictures: right-click a picture and choose Full Page (or Full Page, Landscape) to give it a page of its own, as large as fits inside the margins. Ideal for a map.</li>
+            <li>Sections: Chapter &gt; New Section adds a part of the book that isn't a chapter, such as your own copyright page, a dedication, a foreword or an About the Author page. Sections aren't listed in the contents, and needn't have a heading. Put them before your first chapter and they come before the contents page.</li>
+            <li>The Export window is never taller than your screen: if its options don't fit, they scroll, so the Export button is always in view (on a Mac it could be hidden behind the Dock). You can also make the window bigger or smaller.</li>
+          </ul>
+          <details>
+            <summary>Earlier updates</summary>
+            <h4>New in 2.2.2</h4>
+            <ul>
+              <li>JustWrite can now be installed from the Microsoft Store, which keeps it up to date. It's the same JustWrite, with the same free trial, and the same licence key unlocks it.</li>
+              <li>Help &gt; Privacy Policy says exactly what JustWrite sends over the internet (very little) and what it never sends (your writing).</li>
+              <li>The trial now says before it ends, not only after, that JustWrite becomes read-only until you enter a licence key. Your books are always safe and readable.</li>
+            </ul>
+            <h4>New in 2.2.1</h4>
+            <ul>
+              <li>Import a PDF (File &gt; Import a Manuscript): its chapters, paragraphs, italics, bold and pictures, without the page numbers, headers, title page and contents. Words split with a hyphen at the end of a line are put back together.</li>
+              <li>Scanned pages: if a PDF is pictures of pages (a scanned typescript, say), JustWrite can read the words in them. That takes a few seconds a page, so it happens in the background while you carry on writing. The status bar shows how it's going (with Stop), and JustWrite tells you when it's ready to import. Read the text through afterwards, as scans can have the odd mistake.</li>
+              <li>Import an EPUB ebook: its chapters, as its table of contents lists them, with italics, bold, pictures and scene breaks. Its cover becomes your new book's cover. (Ebooks locked with DRM can't be read.)</li>
+              <li>Also fixed: searching Version History for a date such as &quot;29 Sept&quot; no longer finds versions saved at 13:29 on other days.</li>
+            </ul>
+            <h4>New in 2.2.0, if you're updating from an earlier version</h4>
+            <ul>
+              <li>Import a manuscript (File &gt; Import a Manuscript): a Word (.docx), LibreOffice (.odt), RTF, text or Markdown file becomes a new book, or more chapters in the one you're writing. It's split into chapters at its headings, or at lines like &quot;Chapter 1&quot;, and keeps italics, bold and pictures. A manuscript back from your editor comes in with their tracked changes made, or without them if you prefer.</li>
+              <li>Curly quotes as you type, in your book's language (“English”, « français », „Deutsch“). Two hyphens make a dash and three full stops an ellipsis. Format &gt; Fix Quotes and Dashes does the same for what you've already written. Both can be turned off in the Format menu.</li>
+              <li>Daily backups (File &gt; Backups): JustWrite copies all your books into a folder you choose, such as a memory stick or Dropbox, and keeps the last 14. Help &gt; Restore from Backup brings a book back, beside your others.</li>
+              <li>Writing on two computers through Dropbox or OneDrive? JustWrite now notices when a chapter has been changed on the other one and shows the new text, instead of saving over it. If you've changed it on both, you choose which to keep, and the other is kept as a version.</li>
+              <li>The free trial is now 14 days with up to 5 chapters, and a licence keeps working for 60 days without an internet connection.</li>
+              <li>Help &gt; Report a Problem saves a report to attach to an email (it never includes your writing), and Help &gt; What's New shows these notes again.</li>
+              <li>Also fixed: Version History's colour key overlapped its checkbox, and the Export window cut off the descriptions on its format buttons.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+      <!-- /release:notes -->
     </div>
   </section>
 </main>
@@ -502,8 +565,9 @@ footer { padding: 56px 0 64px; }
   choose(tabs[0], false);
 })();
 
-// Windows: the Microsoft Store. The direct download (and Mac, once there is one) are filled in from the update file
-// JustWrite itself reads (update-2.json, published with each GitHub release); without it, they go to the releases page.
+// Windows: the Microsoft Store. The direct download and What's New are written into this page with each release
+// (tools/Release.java); the update file JustWrite itself reads (update-2.json) brings the Mac download, once there is
+// one, and a newer release than the page has.
 (function () {
   document.getElementById("year").textContent = new Date().getFullYear();
   var ua = navigator.userAgent || "";
@@ -518,22 +582,45 @@ footer { padding: 56px 0 64px; }
     return isNaN(d) ? "" : d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   }
 
-  function showNotes(version, notes) {
+  // Is version a (such as 2.2.10) later than b?
+  function newer(a, b) {
+    var x = String(a).split("."), y = String(b).split(".");
+    for (var i = 0; i < Math.max(x.length, y.length); i++) {
+      var d = (parseInt(x[i], 10) || 0) - (parseInt(y[i], 10) || 0);
+      if (d) return d > 0;
+    }
+    return false;
+  }
+
+  // The notes as Release.java writes them: this version's, then the earlier ones folded away.
+  function showNotes(version, when, notes) {
     var box = document.getElementById("notes");
-    var list = null;
+    var parent = box, list = null;
+    box.textContent = "";
     notes.split(/\n+/).forEach(function (line) {
       line = line.trim();
       if (!line) return;
-      if (line.charAt(0) === "•" || line.charAt(0) === "-") {
-        if (!list) list = box.appendChild(document.createElement("ul"));
+      if (/^New in \d/.test(line)) {
+        if (parent === box) {
+          parent = box.appendChild(document.createElement("details"));
+          parent.appendChild(document.createElement("summary")).textContent = "Earlier updates";
+        }
+        list = null;
+        parent.appendChild(document.createElement("h4")).textContent = line.replace(/:$/, "");
+      } else if (line.charAt(0) === "•" || line.charAt(0) === "-") {
+        if (!list) list = parent.appendChild(document.createElement("ul"));
         list.appendChild(document.createElement("li")).textContent = line.replace(/^[•-]\s*/, "");
       } else {
         list = null;
-        box.appendChild(document.createElement("p")).textContent = line;
+        parent.appendChild(document.createElement("p")).textContent = line;
       }
     });
+    document.getElementById("whats-new").setAttribute("data-version", version);
     document.getElementById("whats-new-title").textContent = "What's new in " + version;
-    document.getElementById("whats-new").hidden = false;
+    document.getElementById("whats-new-when").textContent = when ? "Released " + when : "";
+    var link = document.getElementById("whats-new-link");
+    link.href = "https://github.com/laowaidave/JustWrite/releases/tag/v" + version;
+    link.textContent = "JustWrite " + version + " on GitHub";
   }
 
   if (system === "windows") {
@@ -547,8 +634,9 @@ footer { padding: 56px 0 64px; }
       var p = JSON.parse(new TextDecoder().decode(bytes));
       var d = p.downloads || {};
       var when = released(p.released);
+      var later = newer(p.version, document.getElementById("whats-new").getAttribute("data-version"));
 
-      if (d.windows) {
+      if (later && d.windows) {
         document.getElementById("dl-direct").href = d.windows.url;
         document.getElementById("direct-detail").textContent = " (JustWrite " + p.version
           + (when ? ", released " + when : "") + ", " + mb(d.windows.size) + ")";
@@ -575,9 +663,9 @@ footer { padding: 56px 0 64px; }
         hero.href = d.mac.url;
         hero.hidden = false;
       }
-      if (p.notes) showNotes(p.version, p.notes);
+      if (later && p.notes) showNotes(p.version, when, p.notes);
     })
-    .catch(function () { /* keep the links to the releases page */ });
+    .catch(function () { /* keep the release written into the page */ });
 })();
 </script>
 </body>
